@@ -45,7 +45,7 @@ function drop() {
 
             <div className="items-center justify-center mt-12 text-center">
                 <div className="pb-6">
-                    <h1 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">Bringing <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-blue-600 shadow-lg shadow-teal-800/80"> Real-Time </span></h1>
+                    <h1 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">Bringing <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-blue-600 shadow-lg shadow-teal-800/80"> Real-Time Vision </span></h1>
                     {/* <p className="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Our solution offers precise brand detection, expiry date identification, item counting, and freshness evaluation, all powered by AI.</p> */}
                 </div>
 
