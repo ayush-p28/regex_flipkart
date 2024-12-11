@@ -1,11 +1,12 @@
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Compare from "./Compare";
 import logo1 from "/images/fruit.gif";
 import logo2 from "/images/research.gif";
 
 import FreshTable from "./FreshtableData";
 import ProductTable from "./ProductTableData";
-import {sendBase64ImageAndAppendRow} from "../utils/callAPI"
+import { sendBase64ImageAndAppendRow } from "../utils/callAPI"
+import { sendBase64ImgProduct } from "../utils/callProductAPI"
 
 
 function drop() {
@@ -13,6 +14,11 @@ function drop() {
     const [base64, setBase64] = useState(null);
     const [base64Imager, setBase64Image] = useState(null);
     const [resultr, setResult] = useState(null);
+
+
+    // const [respon, setRespon] = useState(null);
+
+    const [selectedModel, setSelectedModel] = useState("freshness");
 
     // Function to handle file input change
     const handleFileChange = (e) => {
@@ -39,32 +45,41 @@ function drop() {
                 behavior: 'smooth' // Optional: Adds smooth scrolling
             });
         }, 100);
-        
+
     }
 
     const handleImageProcessing = async (readerResult) => {
         try {
-            // Call the async utility function and wait for the response
-            const response = await sendBase64ImageAndAppendRow(
-                readerResult.replace(/^data:image\/\w+;base64,/, "")
-            );
 
-            const { deteted_image, result } = response;
-            // console.log(response+"+++++++++++++");
+            if (selectedModel === "freshness") {
+                // Call the async utility function and wait for the response
+                const response = await sendBase64ImageAndAppendRow(
+                    readerResult.replace(/^data:image\/\w+;base64,/, "")
+                );
+                // setRespon(response); // Update the state
+                if (response) { // Use response directly
+                    const { deteted_image, result } = response;
+                    setBase64Image("data:image/jpeg;base64," + deteted_image);
+                    setResult(result);
+                }
+            } else {
+                const response = await sendBase64ImgProduct(
+                    readerResult.replace(/^data:image\/\w+;base64,/, "")
+                );
+                // setRespon(response); // Update the state
+                if (response) { // Use response directly
+                    const { deteted_image, result } = response;
+                    setBase64Image("data:image/jpeg;base64," + deteted_image);
+                    setResult(result);
+                }
+            }
             
-            setBase64Image("data:image/jpeg;base64,"+deteted_image);
-            setResult(result);
-            console.log("Response Object:", response);
-            console.log(deteted_image+ "+++++++++++++");
-            console.log(result+ "+++++++++++++");
 
-
-        }catch (error) {
+        } catch (error) {
             console.error("Error processing image:", error);
         }
     }
 
-    const [selectedModel, setSelectedModel] = useState("freshness");
 
     const handleChange = (e) => {
         setSelectedModel(e.target.value);
