@@ -3,10 +3,16 @@ import Compare from "./Compare";
 import logo1 from "/images/fruit.gif";
 import logo2 from "/images/research.gif";
 
+// import FreshTable from "./FreshtableData";
+// import ProductTable from "./ProductTableData";
+import {sendBase64ImageAndAppendRow} from "../utils/callAPI"
+
 
 function drop() {
 
     const [base64, setBase64] = useState(null);
+    const [base64Imager, setBase64Image] = useState(null);
+    const [resultr, setResult] = useState(null);
 
     // Function to handle file input change
     const handleFileChange = (e) => {
@@ -17,13 +23,18 @@ function drop() {
             reader.onloadend = () => {
                 // Set the Base64 string in the state
                 setBase64(reader.result);
+                console.log(reader.result);
+                const response = sendBase64ImageAndAppendRow(reader.result);
+                const { base64Image, result } = response;
+
+                setBase64Image(base64Image);
+                setResult(result);
             };
 
             // Read the file as a data URL (Base64)
             reader.readAsDataURL(file);
 
             document.getElementById('temp').style.display = 'none';
-
         }
         setTimeout(() => {
             window.scrollTo({
@@ -151,8 +162,11 @@ function drop() {
                             style={{ width: '100%' }}
                         /> */}
 
-                        {selectedModel === "freshness" && <Compare uploadedImage1={base64} logo={logo1} />}
-                        {selectedModel === "product" && <Compare uploadedImage1={base64} logo={logo2} />}
+                        {selectedModel === "freshness" && <Compare uploadedImage1={base64} uploadedImage2={base64Imager} logo={logo1} />}
+                        {/* {selectedModel === "freshness" && <FreshTable />} */}
+
+                        {selectedModel === "product" && <Compare uploadedImage1={base64} uploadedImage2={base64Imager} logo={logo2} />}
+                        {/* {selectedModel === "product" && <ProductTable />} */}
 
                         {/* <h3>Image Preview:</h3> */}
 
