@@ -9,15 +9,21 @@ import Temp2 from "/images/base64.jpg";
 import Temp1 from "/images/clinic_plus.jpg";
 
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById('head')).render(
   <StrictMode>
     <Navbar />
+    {/* <Drop /> */}
+  </StrictMode>,
+)
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    {/* <Navbar /> */}
     <Drop />
   </StrictMode>,
 )
-
 createRoot(document.getElementById('temp')).render(
   <StrictMode>
     <Compare uploadedImage1={Temp1} uploadedImage2={Temp2} uploadedImage3={true} />
   </StrictMode>,
 )
+

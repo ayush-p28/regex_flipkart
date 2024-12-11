@@ -25,7 +25,7 @@ export default function App({ uploadedImage1, uploadedImage2, uploadedImage3, lo
   }, [uploadedImage1, uploadedImage3]);
 
   return (
-    <div className="grid gap-6 md:grid-cols-3 mx-auto md:mx-12 py-24">
+    <div className="grid gap-6 md:grid-cols-3 mx-auto md:mx-12 py-8">
       {/* INPUT Section */}
       <div className="flex flex-col items-center justify-center h-full w-full">
         <h3 className="text-silvertxt text-2xl font-bold mb-4">INPUT</h3>

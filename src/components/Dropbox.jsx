@@ -3,8 +3,8 @@ import Compare from "./Compare";
 import logo1 from "/images/fruit.gif";
 import logo2 from "/images/research.gif";
 
-// import FreshTable from "./FreshtableData";
-// import ProductTable from "./ProductTableData";
+import FreshTable from "./FreshtableData";
+import ProductTable from "./ProductTableData";
 import {sendBase64ImageAndAppendRow} from "../utils/callAPI"
 
 
@@ -21,14 +21,11 @@ function drop() {
             const reader = new FileReader();
 
             reader.onloadend = () => {
-                // Set the Base64 string in the state
-                setBase64(reader.result);
+                const base64Content = reader.result;
+                setBase64(base64Content);
                 console.log(reader.result);
-                const response = sendBase64ImageAndAppendRow(reader.result);
-                const { base64Image, result } = response;
 
-                setBase64Image(base64Image);
-                setResult(result);
+                handleImageProcessing(reader.result);
             };
 
             // Read the file as a data URL (Base64)
@@ -45,6 +42,28 @@ function drop() {
         
     }
 
+    const handleImageProcessing = async (readerResult) => {
+        try {
+            // Call the async utility function and wait for the response
+            const response = await sendBase64ImageAndAppendRow(
+                readerResult.replace(/^data:image\/\w+;base64,/, "")
+            );
+
+            const { deteted_image, result } = response;
+            // console.log(response+"+++++++++++++");
+            
+            setBase64Image("data:image/jpeg;base64,"+deteted_image);
+            setResult(result);
+            console.log("Response Object:", response);
+            console.log(deteted_image+ "+++++++++++++");
+            console.log(result+ "+++++++++++++");
+
+
+        }catch (error) {
+            console.error("Error processing image:", error);
+        }
+    }
+
     const [selectedModel, setSelectedModel] = useState("freshness");
 
     const handleChange = (e) => {
@@ -54,14 +73,7 @@ function drop() {
     return (
         <>
 
-            <div className="items-center justify-center mt-12 text-center">
-                <div className="pb-6">
-                    <h1 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">Bringing <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-blue-600 shadow-lg shadow-teal-800/80"> Real-Time Vision </span></h1>
-                    {/* <p className="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Our solution offers precise brand detection, expiry date identification, item counting, and freshness evaluation, all powered by AI.</p> */}
-                </div>
-
-
-
+            <div className="items-center justify-center text-center">
                 <h3 className="mb-5 text-lg font-medium text-gray-900 dark:text-white mt-8">Select Model?</h3>
                 <ul className="grid w-1/2 gap-6 md:grid-cols-2 mx-auto">
                     <li>
@@ -139,7 +151,7 @@ function drop() {
 
 
 
-                <div className="flex items-center justify-center w-1/2 mx-auto pt-6">
+                <div className="flex items-center justify-center w-1/2 mx-auto py-6">
                     <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-[#000000] dark:bg-opacity-75 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-950">
                         <div className="flex flex-col items-center justify-center pt-5 pb-6">
                             <svg className="animate-bounce w-10 h-10 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
@@ -163,10 +175,10 @@ function drop() {
                         /> */}
 
                         {selectedModel === "freshness" && <Compare uploadedImage1={base64} uploadedImage2={base64Imager} logo={logo1} />}
-                        {/* {selectedModel === "freshness" && <FreshTable />} */}
+                        {selectedModel === "freshness" && <FreshTable result={resultr} />}
 
                         {selectedModel === "product" && <Compare uploadedImage1={base64} uploadedImage2={base64Imager} logo={logo2} />}
-                        {/* {selectedModel === "product" && <ProductTable />} */}
+                        {selectedModel === "product" && <ProductTable result={resultr} />}
 
                         {/* <h3>Image Preview:</h3> */}
 
