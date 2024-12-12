@@ -143,7 +143,7 @@ function drop() {
                         >
                             <div className="block">
                                 <div className="w-full text-lg font-semibold">Product Detection</div>
-                                <div className="w-full">good for FMCG</div>
+                                <div className="w-full">for clinic plus, colgate, tide, maggi, pepsi, harpic, lays, parle-g, tata salt, tata agni</div>
                             </div>
                             <svg
                                 className="w-5 h-5 ms-3 rtl:rotate-180"
