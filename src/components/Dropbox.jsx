@@ -108,7 +108,7 @@ function drop() {
                         >
                             <div className="block">
                                 <div className="w-full text-lg font-semibold">Freshness Detection</div>
-                                <div className="w-full">Good for small websites</div>
+                                <div className="w-full">for apple, tomato, mango, capsicum, broccoli, papaya, banana</div>
                             </div>
                             <svg
                                 className="w-5 h-5 ms-3 rtl:rotate-180"
@@ -143,7 +143,7 @@ function drop() {
                         >
                             <div className="block">
                                 <div className="w-full text-lg font-semibold">Product Detection</div>
-                                <div className="w-full">Good for large websites</div>
+                                <div className="w-full">good for FMCG</div>
                             </div>
                             <svg
                                 className="w-5 h-5 ms-3 rtl:rotate-180"
