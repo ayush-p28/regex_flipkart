@@ -69,33 +69,40 @@ export default function App({ uploadedImage1, uploadedImage2, uploadedImage3, lo
       </div>
 
       {/* COMPARE Section */}
-      <div className="flex flex-col items-center justify-center h-full w-full">
-        <h3 className="text-silvertxt text-2xl font-bold mb-4">COMPARE</h3>
-        {imgSrc ? (
-          <ReactCompareSlider
-            itemOne={
-              <ReactCompareSliderImage
-                src={uploadedImage1}
-                alt="Image one"
-              />
-            }
-            itemTwo={
-              <ReactCompareSliderImage
-                src={imgSrc}
-                alt="Image two"
-              />
-            }
+<div className="flex flex-col items-center justify-center h-full w-full">
+  <h3 className="text-silvertxt text-2xl font-bold mb-4">COMPARE</h3>
+  {imgSrc ? (
+    <div className="relative h-[400px] w-[100%] max-w-[400px]">
+      <ReactCompareSlider
+        itemOne={
+          <ReactCompareSliderImage
+            src={uploadedImage1}
+            alt="Image one"
           />
-        ) : (
-          <div
-            role="status"
-            className="flex items-center justify-center h-[400px] w-full bg-gray-300 rounded-lg animate-pulse dark:bg-gray-700"
-          >
-            <img src={logo} className="w-32 h-32" alt="" />
-            <span className="sr-only">Loading...</span>
-          </div>
-        )}
-      </div>
+        }
+        itemTwo={
+          <ReactCompareSliderImage
+            src={imgSrc}
+            alt="Image two"
+          />
+        }
+        style={{
+          height: "100%",
+          width: "100%",
+        }}
+      />
+    </div>
+  ) : (
+    <div
+      role="status"
+      className="flex items-center justify-center h-[400px] w-full bg-gray-300 rounded-lg animate-pulse dark:bg-gray-700"
+    >
+      <img src={logo} className="w-32 h-32" alt="" />
+      <span className="sr-only">Loading...</span>
+    </div>
+  )}
+</div>
+
     </div>
   );
 }
