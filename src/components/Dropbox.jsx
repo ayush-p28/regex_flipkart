@@ -22,6 +22,9 @@ function drop() {
 
     // Function to handle file input change
     const handleFileChange = (e) => {
+        setBase64Image(null);
+        setResult(null);
+        setBase64(null)
         const file = e.target.files[0];
         if (file) {
             const reader = new FileReader();
